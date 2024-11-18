@@ -1,6 +1,5 @@
-let dorks = []; // Array to store dorks dynamically loaded from dorks.txt
-
-// Load dorks from dorks.txt
+// Load dorks dynamically from dorks.txt
+let dorks = [];
 fetch('dorks.txt')
     .then(response => {
         if (!response.ok) throw new Error("Failed to load dorks.txt");
@@ -12,18 +11,34 @@ fetch('dorks.txt')
     .catch(error => console.error("Error loading dorks:", error));
 
 // Utility to generate DORK queries
-const generateQueries = (input) => {
-    return dorks
-        .map(dork => `${input} ${dork}`) // Combine input with every dork
-        .join("\n"); // Join all into a single string
+const generateQueries = (input, type) => {
+    if (!input) return ""; // Return empty if no input provided
+
+    switch (type) {
+        case "domainWord": // Section 1
+            return dorks
+                .map(dork => `/\\(?:https?:\\/\\/\\)?(?:www\\.)?(?:[\\w-]+\\.)?${input}\\.[a-z]{2,}/ ${dork}`)
+                .join("\n");
+
+        case "domainTLD": // Section 2
+            return dorks
+                .map(dork => `/.+\\.${input}/ ${dork}`)
+                .join("\n");
+
+        case "organization": // Section 3
+            return dorks
+                .map(dork => `org:${input} ${dork}`)
+                .join("\n");
+
+        default:
+            return "";
+    }
 };
 
 // Section 1: Search by Domain Word
 document.getElementById("showOutput1").addEventListener("click", () => {
     const input = document.getElementById("domainWord").value.trim();
-    if (input) {
-        document.getElementById("output1").value = generateQueries(input);
-    }
+    document.getElementById("output1").value = generateQueries(input, "domainWord");
 });
 
 document.getElementById("clearOutput1").addEventListener("click", () => {
@@ -33,9 +48,7 @@ document.getElementById("clearOutput1").addEventListener("click", () => {
 // Section 2: Search by Domain TLD
 document.getElementById("showOutput2").addEventListener("click", () => {
     const input = document.getElementById("domainTLD").value.trim();
-    if (input) {
-        document.getElementById("output2").value = generateQueries(input);
-    }
+    document.getElementById("output2").value = generateQueries(input, "domainTLD");
 });
 
 document.getElementById("clearOutput2").addEventListener("click", () => {
@@ -45,9 +58,7 @@ document.getElementById("clearOutput2").addEventListener("click", () => {
 // Section 3: Search by Organization
 document.getElementById("showOutput3").addEventListener("click", () => {
     const input = document.getElementById("organization").value.trim();
-    if (input) {
-        document.getElementById("output3").value = generateQueries(input);
-    }
+    document.getElementById("output3").value = generateQueries(input, "organization");
 });
 
 document.getElementById("clearOutput3").addEventListener("click", () => {
