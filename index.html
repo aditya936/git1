@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GitHub Dorking Tool</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <h1>GitHub Dorking Tool</h1>
+
+    <!-- Section 1: Search by Domain Word -->
+    <section>
+        <h2>1. Search by Domain Word</h2>
+        <label for="domainWord">Enter Domain Word (e.g., bugcrowd):</label>
+        <textarea id="domainWord" placeholder="Enter a domain word..."></textarea>
+        <div class="buttons">
+            <button id="showOutput1">Show Output</button>
+            <button id="clearOutput1">Clear Output</button>
+        </div>
+        <textarea id="output1" readonly placeholder="Output will appear here..."></textarea>
+    </section>
+
+    <!-- Section 2: Search by Domain TLD -->
+    <section>
+        <h2>2. Search by Domain TLD</h2>
+        <label for="domainTLD">Enter Domain TLD (e.g., bugcrowd.com):</label>
+        <textarea id="domainTLD" placeholder="Enter a domain TLD..."></textarea>
+        <div class="buttons">
+            <button id="showOutput2">Show Output</button>
+            <button id="clearOutput2">Clear Output</button>
+        </div>
+        <textarea id="output2" readonly placeholder="Output will appear here..."></textarea>
+    </section>
+
+    <!-- Section 3: Search by Organization -->
+    <section>
+        <h2>3. Search by Organization</h2>
+        <label for="organization">Enter Organization Name (e.g., facebookresearch):</label>
+        <textarea id="organization" placeholder="Enter an organization name..."></textarea>
+        <div class="buttons">
+            <button id="showOutput3">Show Output</button>
+            <button id="clearOutput3">Clear Output</button>
+        </div>
+        <textarea id="output3" readonly placeholder="Output will appear here..."></textarea>
+    </section>
+
+    <script src="script.js"></script>
+</body>
+</html>
